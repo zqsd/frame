@@ -4,7 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "build": "rollup -c --environment BUILD:release",
+    "build": "rollup -c --environment BUILD:release && git add lib/frame.es.min.js",
     "dev": "concurrently \"rollup -c -w --environment BUILD:dev\" \"http-server .\"",
     "test": "jest"
   },
@@ -20,10 +20,15 @@
     "concurrently": "^4.1.2",
     "http-server": "^0.11.1",
     "jest": "^24.9.0",
+    "pre-commit": "^1.2.2",
     "rollup": "^1.21.2",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-terser": "^5.1.1"
-  }
+  },
+  "pre-commit": [
+     "test",
+     "build"
+  ]
 }
