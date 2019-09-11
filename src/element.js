@@ -1,3 +1,5 @@
+import {mount} from './mount';
+
 export function explodeTagIdCls(tagIdCls) {
     const [, tag, , id, clss] = /^(\w*)(#([\w-]+)|)((\.[\w-]+)*)$/g.exec(tagIdCls || '');
     const cls = clss.split('.').slice(1);
@@ -7,18 +9,16 @@ export function explodeTagIdCls(tagIdCls) {
 export function element(tagIdCls, arg2, arg3) {
     const [tag, id, cls] = explodeTagIdCls(tagIdCls);
     let attrs, content;
-    if(arg3) {
+
+    // arg2: element attributes, arg3: content
+    if(typeof(arg2) === 'object' && arg2.__proto__.constructor.name === 'Object') {
         attrs = arg2;
         content = arg3;
     }
     else {
-        if(typeof(arg2) === 'object') {
-            attrs = arg2;
-        }
-        else {
-            content = arg2;
-        }
+        content = arg2;
     }
+
     const el = document.createElement(tag);
     if(id) {
         el.id = id;
@@ -30,14 +30,15 @@ export function element(tagIdCls, arg2, arg3) {
 
     if(attrs) {
         for(const [key, value] of Object.entries(attrs)) {
-            el.setAttribute(key, value);
+            if(typeof(value) === 'function') {
+                el.addEventListener(key, value, true);
+            }
+            else {
+                el.setAttribute(key, value);
+            }
         }
     }
-    if(content) {
-        if(typeof(content) === 'string') {
-            el.appendChild(document.createTextNode(content));
-        }
-    }
+    mount(el, content);
 
     return el;
 };
