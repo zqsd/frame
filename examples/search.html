@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script async type="module">
+            import f from '../lib/frame.es.min.js';
+
+            const languages = ['C', 'C++', 'C#', 'D', 'Delphi', 'Go', 'Java', 'JavaScript', 'Python', 'Rust', 'Typescript'];
+
+            const resultsElement = f('ul');
+
+            // simulate requests by a timer
+            let timeout;
+            function search(query) {
+                if(timeout)
+                    clearTimeout(timeout);
+                timeout = setTimeout(() => {
+                    console.log(query);
+                }, 50 + Math.random() * 200);
+
+                // filter results, normally do this on the server
+                const queryLc = query.toLowerCase();
+                const results = languages.filter(lang => {
+                    return queryLc.length > 0 && lang.toLowerCase().startsWith(queryLc);
+                });
+
+                // render results
+                f.mount(resultsElement, results.map(result => {
+                    return f('li', result);
+                }));
+            }
+
+            f.mount(document.body, [
+                f('input', {type: 'text', keyup: function(e) { search(e.target.value) }, placeholder: 'Search a programming language'}),
+                resultsElement,
+            ]);
+        </script>
+    </head>
+    <body>f not initialized</body>
+</html>
