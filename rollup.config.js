@@ -9,7 +9,7 @@ let plugins = [
     babel(),
 ];
 if(process.env.BUILD === 'release')
-    plugins.append(terser());
+    plugins.push(terser());
 
 export default {
     input: 'src/index.js',
