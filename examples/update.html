@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script async type="module">
+            import f from '../lib/frame.es.min.js';
+
+            class Counter {
+                constructor() {
+                    this.el = f('div');
+                    this.counter = 0;
+                    this.update();
+                }
+                update() {
+                    this.el.textContent = this.counter > 0 ? `Clicked ${this.counter} times` : 'Not clicked yet';
+                }
+                inc() {
+                    this.counter++;
+                    this.update();
+                }
+            }
+
+            const counter = new Counter();
+            f.mount(document.body, [
+                counter,
+                f('button', {click: function() { counter.inc(); }}, 'Click me!'),
+            ]);
+        </script>
+    </head>
+    <body>f not initialized</body>
+</html>
