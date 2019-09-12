@@ -31,7 +31,10 @@ export function element(tagIdCls, arg2, arg3) {
     if(attrs) {
         for(const [key, value] of Object.entries(attrs)) {
             if(typeof(value) === 'function') {
-                el.addEventListener(key, value, true);
+                el.addEventListener(key, e => {
+                    e.preventDefault();
+                    return value(e);
+                });
             }
             else {
                 el.setAttribute(key, value);
