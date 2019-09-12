@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            ul.tab-block {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+                display: flex;
+                flex-wrap: wrap;
+                border-bottom: 0.05rem solid #ccc;
+            }
+            ul.tab-block > li {
+                flex: 1 0 0;
+                text-align: center;
+            }
+            ul.tab-block > li > a {
+                display: block;
+                text-decoration: none;
+                color: #333;
+                border-bottom: 0.2rem solid rgba(0, 0, 0, 0);
+            }
+            ul.tab-block > li > a:hover, ul.tab-block > li > a.active {
+                color: #f70;
+            }
+            ul.tab-block > li > a.active {
+                border-bottom-color: #f70;
+            }
+        </style>
+        <script async type="module">
+            import f from '../lib/frame.es.min.js';
+
+            const tabContent = f('div');
+            class MyTabMenu {
+                constructor() {
+                    this.tabs = f('ul.tab-block', [
+                        f('li', f('a', {href: '#', click: () => this.update(0)}, 'Tab 1')),
+                        f('li', f('a', {href: '#', click: () => this.update(1)}, 'Tab 2')),
+                        f('li', f('a', {href: '#', click: () => this.update(2)}, 'Tab 3')),
+                    ]);
+                    this.content = f('div');
+                    this.el = f('div', [this.tabs, this.content]);
+
+                    this.update(0);
+                }
+
+                update(tabIndex) {
+                    if(this.currentTab !== undefined)
+                        this.tabs.children[this.currentTab].firstChild.className = '';
+                    this.tabs.children[tabIndex].firstChild.className = 'active';
+                    this.currentTab = tabIndex;
+
+                    if(tabIndex === 0) {
+                        f.mount(this.content, f('img', {src: 'https://cataas.com/cat'}));
+                    }
+                    else if(tabIndex === 1) {
+                        f.mount(this.content, f('img', {src: 'https://picsum.photos/640/480'}));
+                    }
+                    else if(tabIndex === 2) {
+                        f.mount(this.content, 'This is the last tab');
+                    }
+                }
+            }
+
+            f.mount(document.body, new MyTabMenu());
+        </script>
+    </head>
+    <body>f not initialized</body>
+</html>
