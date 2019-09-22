@@ -33,9 +33,9 @@
             class MyTabMenu {
                 constructor() {
                     this.tabs = f('ul.tab-block', [
-                        f('li', f('a', {href: '#', click: () => this.update(0)}, 'Tab 1')),
-                        f('li', f('a', {href: '#', click: () => this.update(1)}, 'Tab 2')),
-                        f('li', f('a', {href: '#', click: () => this.update(2)}, 'Tab 3')),
+                        f('li', f('a', {click: () => this.update(0)}, 'Tab 1')),
+                        f('li', f('a', {click: () => this.update(1)}, 'Tab 2')),
+                        f('li', f('a', {click: () => this.update(2)}, 'Tab 3')),
                     ]);
                     this.content = f('div');
                     this.el = f('div', [this.tabs, this.content]);
