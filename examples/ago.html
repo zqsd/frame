@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script async type="module">
+        import f from '../lib/frame.es.min.js';
+
+        const SECOND = 1000, // 1000 milliseconds
+              MINUTE = 60000, // 60 seconds
+              HOUR = 3600000, // 60 minutes
+              DAY = 86400000, // 24 hours
+              WEEK = 604800000, // 7 days
+              MONTH = 2419200000, // 28 days
+              YEAR = 31536000000; // 365 days
+        const MAX_DELAY = Math.pow(2, 31) - 1; // setTimeout and setInterval take a 32 bits integer
+        let rtf;
+
+        function ago() {
+            if(!rtf)
+                rtf = new Intl.RelativeTimeFormat(document.body.parentElement.getAttribute('lang') || 'en');
+
+            const diff = Date.now() - this.date.getTime();
+
+            if(diff < MINUTE)
+                return [rtf.format(-Math.round(diff / SECOND), 'second'), SECOND - diff % SECOND];
+            else if(diff < HOUR)
+                return [rtf.format(-Math.round(diff / MINUTE), 'minute'), MINUTE - diff % MINUTE];
+            else if(diff < DAY)
+                return [rtf.format(-Math.round(diff / HOUR), 'hour'), MINUTE - diff % HOUR];
+            else if(diff < WEEK)
+                return [rtf.format(-Math.round(diff / DAY), 'day'), MINUTE - diff % DAY];
+            else if(diff < MONTH)
+                return [rtf.format(-Math.round(diff / WEEK), 'week'), WEEK - diff % WEEK];
+            else if(diff < YEAR)
+                return [rtf.format(-Math.round(diff / MONTH), 'month'), Math.min(MAX_DELAY, MONTH - diff % MONTH)];
+            else
+                return [rtf.format(-Math.round(diff / YEAR), 'year'), Math.min(MAX_DELAY, YEAR - diff % YEAR)];
+        }
+
+        class Ago {
+            constructor(date, formatter = ago) {
+                this.date = date;
+                this.formatter = ago;
+                this.el = f('time', {
+                    datetime: date.toISOString(),
+                    title: date.toLocaleString(),
+                });
+                this.update();
+            }
+
+            update() {
+                const [text, delay] = this.formatter(this.date);
+                this.el.textContent = text;
+                setTimeout(this.update.bind(this), Math.min(60 * 60 * 1000, delay));
+            }
+        }
+        f.mount(document.body, f('table', [
+            f('tr', [f('th', 'Filename'), f('th', 'Created'), f('th', 'Modified')])
+        ].concat(f.range(1, 10).map(i => {
+            return f('tr', [
+                f('td', `file ${i}`),
+                f('td', new Ago(new Date(Date.now() - Math.random() * 6e10))),
+                f('td', new Ago(new Date(Date.now() - Math.random() * 3e5))),
+            ]);
+        }))));
+    </script>
+</head>
+
+<body>f not initialized</body>
+
+</html>
