@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script async type="module">
+        import f from '../lib/frame.es.min.js';
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(() => resolve(), ms));
+        }
+
+        // simulate json request or async process
+        async function loadFakeData() {
+            await sleep(2000);
+            return Array(10).fill().map(() => Math.round(Math.random() * 42));
+        }
+
+        // display interface, load data in async and only display data when ready
+        f.mount(document.getElementById('before'), [
+            f('div', 'Random codes :'),
+            loadFakeData().then(codes => {
+                return f('ul', codes.map(code => f('li', code)));
+            }),
+            f('div', 'Generated asynchronously'),
+        ]);
+
+        // display everything when data is ready
+        loadFakeData().then(codes => {
+            f.mount(document.getElementById('after'), [
+                f('div', 'Random codes :'),
+                f('ul', codes.map(code => f('li', code))),
+                f('div', 'Generated asynchronously'),
+            ]);
+        });
+
+        // display a loading placeholder
+        f.mount(document.getElementById('placeholder'), [
+            f('div', 'Random codes :'),
+            new f.PromiseSwitcher(() => {
+                return f('div', 'Loading...');
+            }, loadFakeData().then(codes => {
+                return f('ul', codes.map(code => f('li', code)));
+            })),
+            f('div', 'Generated asynchronously'),
+        ]);
+    </script>
+</head>
+
+<body>
+    <h2>Mount before promise resolves</h2>
+    <div id="before"></div>
+
+    <h2>Mount after promise resolves</h2>
+    <div id="after"></div>
+
+    <h2>Promise placeholder</h2>
+    <div id="placeholder"></div>
+</body>
+
+</html>
