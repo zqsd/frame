@@ -132,14 +132,14 @@ mount.after = function(parent, children, reference) {
     });
 };
 
-mount.replace = function(parent, children, reference) {
+mount.replace = function(children, reference) {
     if(children) {
         return traverse(children, (element) => {
-            parent.replaceChild(element, reference)
+            reference.parentNode.replaceChild(element, reference)
         });
     }
     else {
-        mount.clear(parent);
+        mount.clear(reference.parentNode);
     }
 };
 
