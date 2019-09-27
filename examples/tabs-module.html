@@ -25,10 +25,12 @@
                     this.currentTab = tabIndex;
 
                     if(tabIndex === 0) {
-                        f.mount(this.content, f('img', {src: 'https://cataas.com/cat'}));
+                        // load a big module in async, only when required
+                        import('./tabs-module-cat.mjs').then(({default: render}) => render(this.content));
                     }
                     else if(tabIndex === 1) {
-                        f.mount(this.content, f('img', {src: 'https://picsum.photos/640/480'}));
+                        // load a big module in async, only when required
+                        import('./tabs-module-pic.mjs').then(({default: render}) => render(this.content));
                     }
                     else if(tabIndex === 2) {
                         f.mount(this.content, 'This is the last tab');
@@ -36,7 +38,7 @@
                 }
             }
 
-            f.mount(document.body, new MyTabMenu());
+            f.mount(document.getElementById('content'), new MyTabMenu());
         </script>
     </head>
     <body><div id="content"></div></body>

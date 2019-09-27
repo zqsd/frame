@@ -1,0 +1,33 @@
+body {
+    padding-top: 2em;
+}
+#content {
+    margin-left: auto;
+    margin-right: auto;
+    width: 640px;
+}
+
+ul.tab-block {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: 0.05rem solid #ccc;
+}
+ul.tab-block > li {
+    flex: 1 0 0;
+    text-align: center;
+}
+ul.tab-block > li > a {
+    display: block;
+    text-decoration: none;
+    color: #333;
+    border-bottom: 0.2rem solid rgba(0, 0, 0, 0);
+}
+ul.tab-block > li > a:hover, ul.tab-block > li > a.active {
+    color: #f70;
+}
+ul.tab-block > li > a.active {
+    border-bottom-color: #f70;
+}
