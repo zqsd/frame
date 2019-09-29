@@ -3,7 +3,7 @@
     <head>
         <link rel="stylesheet" href="main.css">
         <script async type="module">
-            import f from '../lib/frame.es.min.js';
+            import {f, mount} from '../lib/frame.es.min.js';
 
             class MyTabMenu {
                 constructor() {
@@ -33,12 +33,12 @@
                         import('./tabs-module-pic.mjs').then(({default: render}) => render(this.content));
                     }
                     else if(tabIndex === 2) {
-                        f.mount(this.content, 'This is the last tab');
+                        mount(this.content, 'This is the last tab');
                     }
                 }
             }
 
-            f.mount(document.getElementById('content'), new MyTabMenu());
+            mount(document.getElementById('content'), new MyTabMenu());
         </script>
     </head>
     <body><div id="content"></div></body>

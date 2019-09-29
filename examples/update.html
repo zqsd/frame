@@ -2,7 +2,7 @@
 <html>
     <head>
         <script async type="module">
-            import f from '../lib/frame.es.min.js';
+            import {f, mount} from '../lib/frame.es.min.js';
 
             class Counter {
                 constructor() {
@@ -20,7 +20,7 @@
             }
 
             const counter = new Counter();
-            f.mount(document.body, [
+            mount(document.body, [
                 counter,
                 f('button', {click: function() { counter.inc(); }}, 'Click me!'),
             ]);

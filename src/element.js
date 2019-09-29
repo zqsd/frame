@@ -6,7 +6,7 @@ export function explodeTagIdCls(tagIdCls) {
     return [tag.length > 0 ? tag : 'div', id && id.length > 0 ? id : null, cls];
 };
 
-export function element(tagIdCls, arg2, arg3) {
+export function element(ns, tagIdCls, arg2, arg3) {
     const [tag, id, cls] = explodeTagIdCls(tagIdCls);
     let attrs, content;
 
@@ -19,7 +19,7 @@ export function element(tagIdCls, arg2, arg3) {
         content = arg2;
     }
 
-    const el = document.createElement(tag);
+    const el = ns ? document.createElementNS(ns, tag) : document.createElement(tag);
     if(id) {
         el.id = id;
     }

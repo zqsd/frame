@@ -1,5 +1,5 @@
-import f from '../lib/frame.es.min.js';
+import {f, mount} from '../lib/frame.es.min.js';
 
 export default function(content) {
-    f.mount(content, f('img', {src: 'https://cataas.com/cat'}));
+    mount(content, f('img', {src: 'https://cataas.com/cat'}));
 }

@@ -1,5 +1,5 @@
 const {mount} = require('../src/mount.js');
-import {element as f} from './element.js';
+import {element} from './element.js';
 const {JSDOM} = require('jsdom');
 const window = (new JSDOM(``, {runScripts: "outside-only"})).window;
 global.window = window;
@@ -69,7 +69,7 @@ describe('mount', function () {
     });
 
     test('mount() frame element', () => {
-        expect(mount(root, f('div', 'Hello world'))).toBeUndefined();
+        expect(mount(root, element(null, 'div', 'Hello world'))).toBeUndefined();
         expect(root.innerHTML).toBe('<div>Hello world</div>');
     });
 

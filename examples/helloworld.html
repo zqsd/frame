@@ -2,8 +2,8 @@
 <html>
     <head>
         <script async type="module">
-            import f from '../lib/frame.es.min.js';
-            f.mount(document.body, f('div', 'Hello world'));
+            import {f, mount} from '../lib/frame.es.min.js';
+            mount(document.body, f('div', 'Hello world'));
         </script>
     </head>
     <body>f not initialized</body>

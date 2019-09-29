@@ -2,7 +2,7 @@
 <html>
     <head>
         <script async type="module">
-            import f from '../lib/frame.es.min.js';
+            import {f, mount} from '../lib/frame.es.min.js';
 
             const languages = ['C', 'C++', 'C#', 'D', 'Delphi', 'Go', 'Java', 'JavaScript', 'Python', 'Rust', 'Typescript'];
 
@@ -24,12 +24,12 @@
                 });
 
                 // render results
-                f.mount(resultsElement, results.map(result => {
+                mount(resultsElement, results.map(result => {
                     return f('li', result);
                 }));
             }
 
-            f.mount(document.body, [
+            mount(document.body, [
                 f('input', {type: 'text', keyup: function(e) { search(e.target.value) }, placeholder: 'Search a programming language'}),
                 resultsElement,
             ]);

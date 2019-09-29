@@ -3,7 +3,7 @@
 
 <head>
     <script async type="module">
-        import f from '../lib/frame.es.min.js';
+        import {f, mount, range} from '../lib/frame.es.min.js';
 
         const SECOND = 1000, // 1000 milliseconds
               MINUTE = 60000, // 60 seconds
@@ -54,9 +54,9 @@
                 setTimeout(this.update.bind(this), Math.min(60 * 60 * 1000, delay));
             }
         }
-        f.mount(document.body, f('table', [
+        mount(document.body, f('table', [
             f('tr', [f('th', 'Filename'), f('th', 'Created'), f('th', 'Modified')])
-        ].concat(f.range(1, 10).map(i => {
+        ].concat(range(1, 10).map(i => {
             return f('tr', [
                 f('td', `file ${i}`),
                 f('td', new Ago(new Date(Date.now() - Math.random() * 6e10))),

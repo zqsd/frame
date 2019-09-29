@@ -1,3 +1,10 @@
+function select(arg) {
+    if(arg instanceof Element)
+        return arg;
+    else
+        return document.querySelector(arg);
+}
+
 /* Traverse a node tree and converts everything to html elements
  * @param {HTMLElement,Array,Promise,function,string,Component} node Tree of elements
  * @param {function} callback Call on each resolved element for the caller to make desired operations on element
@@ -73,7 +80,8 @@ function traverse(node, callback) {
  * Clears all contents of element
  * @param {HTMLElement} element
  */
-mount.clear = function(element) {
+mount.clear = function(selector) {
+    const element = select(selector);
     if(element.childNodes.length > 0)
         element.innerHTML = ''; // quick clear
 }
@@ -84,7 +92,8 @@ mount.clear = function(element) {
  * @param {HTMLElement} parent 
  * @param {HTMLElement,Array,Promise,function,string,Component} children
  */
-function mount(parent, children) {
+function mount(parentSelector, children) {
+    const parent = select(parentSelector);
     mount.clear(parent);
     return mount.append(parent, children);
 }
@@ -94,7 +103,8 @@ function mount(parent, children) {
  * @param {HTMLElement} parent 
  * @param {HTMLElement,Array,Promise,function,string,Component} children
  */
-mount.prepend = function(parent, children) {
+mount.prepend = function(parentSelector, children) {
+    const parent = select(parentSelector);
     return mount.before(parent, children, parent.firstChild);
 };
 
@@ -103,7 +113,8 @@ mount.prepend = function(parent, children) {
  * @param {HTMLElement} parent 
  * @param {HTMLElement,Array,Promise,function,string,Component} children
  */
-mount.append = function(parent, children) {
+mount.append = function(parentSelector, children) {
+    const parent = select(parentSelector);
     return mount.after(parent, children, null);
 };
 
@@ -113,7 +124,8 @@ mount.append = function(parent, children) {
  * @param {HTMLElement,Array,Promise,function,string,Component} children
  * @param {HTMLElement} reference 
  */
-mount.before = function(parent, children, reference) {
+mount.before = function(parentSelector, children, reference) {
+    const parent = select(parentSelector);
     return traverse(children, (element, reference2) => {
         parent.insertBefore(element, reference2 ? reference2 : reference);
     });
@@ -125,7 +137,8 @@ mount.before = function(parent, children, reference) {
  * @param {HTMLElement,Array,Promise,function,string,Component} children
  * @param {HTMLElement} reference 
  */
-mount.after = function(parent, children, reference) {
+mount.after = function(parentSelector, children, reference) {
+    const parent = select(parentSelector);
     const after = reference ? reference.nextSibling : null;
     return traverse(children, (element, after2) => {
         parent.insertBefore(element, after2 ? after2 : after);

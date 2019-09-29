@@ -3,7 +3,7 @@
 
 <head>
     <script async type="module">
-        import f from '../lib/frame.es.min.js';
+        import {f, mount, PromiseSwitcher} from '../lib/frame.es.min.js';
 
         function sleep(ms) {
             return new Promise(resolve => setTimeout(() => resolve(), ms));
@@ -16,7 +16,7 @@
         }
 
         // display interface, load data in async and only display data when ready
-        f.mount(document.getElementById('before'), [
+        mount(document.getElementById('before'), [
             f('div', 'Random codes :'),
             loadFakeData().then(codes => {
                 return f('ul', codes.map(code => f('li', code)));
@@ -26,7 +26,7 @@
 
         // display everything when data is ready
         loadFakeData().then(codes => {
-            f.mount(document.getElementById('after'), [
+            mount(document.getElementById('after'), [
                 f('div', 'Random codes :'),
                 f('ul', codes.map(code => f('li', code))),
                 f('div', 'Generated asynchronously'),
@@ -34,9 +34,9 @@
         });
 
         // display a loading placeholder
-        f.mount(document.getElementById('placeholder'), [
+        mount(document.getElementById('placeholder'), [
             f('div', 'Random codes :'),
-            new f.PromiseSwitcher(() => {
+            new PromiseSwitcher(() => {
                 return f('div', 'Loading...');
             }, loadFakeData().then(codes => {
                 return f('ul', codes.map(code => f('li', code)));

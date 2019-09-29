@@ -24,18 +24,18 @@ describe('element', function () {
     });
 
     test('f(...) element creation', () => {
-        expect(element().outerHTML).toBe('<div></div>');
-        expect(element('#hello').outerHTML).toBe('<div id="hello"></div>');
+        expect(element(null).outerHTML).toBe('<div></div>');
+        expect(element(null, '#hello').outerHTML).toBe('<div id="hello"></div>');
 
-        expect(element('.hello').outerHTML).toBe('<div class="hello"></div>');
-        expect(element('.hello.world').outerHTML).toBe('<div class="hello world"></div>');
-        expect(element('span.hello').outerHTML).toBe('<span class="hello"></span>');
+        expect(element(null, '.hello').outerHTML).toBe('<div class="hello"></div>');
+        expect(element(null, '.hello.world').outerHTML).toBe('<div class="hello world"></div>');
+        expect(element(null, 'span.hello').outerHTML).toBe('<span class="hello"></span>');
 
-        expect(element('font').outerHTML).toBe('<font></font>');
-        expect(element('font', {}).outerHTML).toBe('<font></font>');
-        expect(element('font', 'test').outerHTML).toBe('<font>test</font>');
-        expect(element('font', {}, 'test').outerHTML).toBe('<font>test</font>');
-        expect(element('font', {color: 'red'}).outerHTML).toBe('<font color="red"></font>');
-        expect(element('font', {color: 'red'}, 'test').outerHTML).toBe('<font color="red">test</font>');
+        expect(element(null, 'font').outerHTML).toBe('<font></font>');
+        expect(element(null, 'font', {}).outerHTML).toBe('<font></font>');
+        expect(element(null, 'font', 'test').outerHTML).toBe('<font>test</font>');
+        expect(element(null, 'font', {}, 'test').outerHTML).toBe('<font>test</font>');
+        expect(element(null, 'font', {color: 'red'}).outerHTML).toBe('<font color="red"></font>');
+        expect(element(null, 'font', {color: 'red'}, 'test').outerHTML).toBe('<font color="red">test</font>');
     });
 });
