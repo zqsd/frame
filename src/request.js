@@ -4,7 +4,7 @@ function json(url, args) {
     return fetch(url, args).then(response => response.json());
 }
 
-json.get = function(originalUrl, query) {
+json.get = function(originalUrl, query = {}) {
     const url = new URL(originalUrl, document.location.href);
     const sp = new URLSearchParams(originalUrl.search);
     for(const [key, value] of Object.entries(query)) {
