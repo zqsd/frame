@@ -20,7 +20,7 @@ json.get = function(originalUrl, query = {}) {
     url.search = sp.toString();
     return json(url.toString(), {
         method: 'GET',
-        credentials: 'same-origin',
+        credentials: 'include',
     });
 };
 
@@ -29,7 +29,7 @@ json.post = function(url, data) {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {'Content-Type': 'application/json'},
-        credentials: 'same-origin',
+        credentials: 'include',
     });
 };
 
