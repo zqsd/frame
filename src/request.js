@@ -33,6 +33,24 @@ json.post = function(url, data) {
     });
 };
 
+json.put = function(url, data) {
+    return json(url, {
+        method: 'PUT',
+        body: JSON.stringify(data),
+        headers: {'Content-Type': 'application/json'},
+        credentials: 'include',
+    });
+};
+
+json.delete = function(url, data) {
+    return json(url, {
+        method: 'DELETE',
+        body: JSON.stringify(data),
+        headers: {'Content-Type': 'application/json'},
+        credentials: 'include',
+    });
+};
+
 request.json = json;
 
 export {request};
