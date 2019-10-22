@@ -1,4 +1,5 @@
 import {mount} from './mount';
+import {route} from './route';
 
 export function explodeTagIdCls(tagIdCls) {
     const [, tag, , id, clss] = /^(\w*)(#([\w-]+)|)((\.[\w-]+)*)$/g.exec(tagIdCls || '');
@@ -26,6 +27,16 @@ export function element(ns, tagIdCls, arg2, arg3) {
 
     if(cls.length > 0) {
         el.className = cls.join(' ');
+    }
+
+    // route links
+    if(route.table && tag === 'a' && !('click' in attrs) && ('href' in attrs)) {
+        if(route.get(attrs.href)) {
+            attrs.click = (e) => {
+                route.go(attrs.href);
+                e.preventDefault();
+            };
+        }
     }
 
     if(attrs) {

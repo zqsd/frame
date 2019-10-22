@@ -2,6 +2,7 @@ import {element as element} from './element.js';
 import {mount, unmount} from './mount.js';
 import {request} from './request.js';
 import {irange, range} from './range.js';
+import {route} from './route.js';
 import {PromiseSwitcher} from './PromiseSwitcher.js';
 
 function html(arg1, arg2, arg3) {
@@ -27,4 +28,5 @@ export {
     irange,
     range,
     PromiseSwitcher,
+    route,
 };
