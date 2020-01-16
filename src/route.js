@@ -1,13 +1,14 @@
 import {mount} from './mount';
 
-export function route(root, table) {
+export function route(root, table, base) {
     route.table = table;
     route.root = root;
+    route.base = typeof(base) === 'string' ? base : document.location.pathname + '#!';
 
-    route.set(document.location.pathname, {});
     window.addEventListener('popstate', (event) => {
         route.set(document.location.pathname, event.state);
     });
+    return route;
 }
 
 route.table = null;
@@ -21,7 +22,7 @@ route.set = function(path, state) {
 
 route.go = function(path, state) {
     route.set(path, state);
-    history.pushState(state, 'Title', path);
+    history.pushState(state, 'Title', route.base + path);
 };
 
 route.get = function(path) {
