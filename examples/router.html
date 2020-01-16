@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="main.css">
+        <script async type="module">
+            import {f, route} from '../lib/frame.es.min.js';
+
+            class Home {
+                constructor() {
+                    this.el = f('ul', [
+                        f('li', f('a', {click: () => { route.go('/pic'); }}, 'Random picture')),
+                        f('li', f('a', {click: () => { route.go('/cat'); }}, 'Random cat')),
+                    ]);
+                }
+            }
+
+            class Pic {
+                constructor() {
+                    this.el = f('div', [
+                        f('a', {click: () => { route.go('/'); }}, '<= Back'),
+                        f('img', {src: 'https://picsum.photos/640/480'}),
+                        
+                    ]);
+                }
+            }
+
+            class Cat {
+                constructor() {
+                    this.el = f('div', [
+                        f('a', {click: () => { route.go('/'); }}, '<= Back'),
+                        f('img', {src: 'https://cataas.com/cat'}),
+                    ]);
+                }
+            }
+
+            route(document.getElementById('content'), {
+                '/': new Home(),
+                '/pic': () => new Pic(),
+                '/cat': () => new Cat(),
+            }).go('/');
+        </script>
+    </head>
+    <body><div id="content"></div></body>
+</html>
