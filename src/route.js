@@ -5,8 +5,8 @@ export function route(root, table, base) {
     route.root = root;
     route.base = typeof(base) === 'string' ? base : document.location.pathname + '#';
 
-    window.addEventListener('popstate', (event) => {
-        route.set(document.location.pathname, event.state);
+    window.addEventListener('popstate', ({state: {path}}) => {
+        route.set(path, event.state);
     });
 
     console.log('router base : ' + document.location.pathname)
@@ -17,9 +17,10 @@ export function route(root, table, base) {
 
 route.table = null;
 
-route.set = function(path, state) {
+route.set = function(path) {
     let matchingRoute = route.get(path);
     if(matchingRoute) {
+        console.log('set ', path, matchingRoute)
         mount(route.root, matchingRoute);
     }
     else {
@@ -27,9 +28,11 @@ route.set = function(path, state) {
     }
 };
 
-route.go = function(path, state) {
-    route.set(path, state);
-    history.pushState(state, 'Title', route.base + path);
+route.go = function(path, params) {
+    route.set(path);
+    history.pushState({
+        path,
+    }, 'Title', route.base + path);
 };
 
 route.get = function(path) {
