@@ -10,6 +10,8 @@
                     this.el = f('ul', [
                         f('li', f('a', {click: () => { route.go('/pic'); }}, 'Random picture')),
                         f('li', f('a', {click: () => { route.go('/cat'); }}, 'Random cat')),
+                        f('li', f('a', {click: () => { route.go('/user/foo'); }}, 'foo\'s profile')),
+                        f('li', f('a', {click: () => { route.go('/user/bar'); }}, 'bar\'s profile')),
                     ]);
                 }
             }
@@ -33,10 +35,20 @@
                 }
             }
 
+            class User {
+                constructor({username}) {
+                    this.el = f('div', [
+                        f('a', {click: () => { route.go('/'); }}, '<= Back'),
+                        f('h3', username),
+                    ]);
+                }
+            }
+
             route(document.getElementById('content'), {
                 '/': new Home(),
                 '/pic': () => new Pic(),
                 '/cat': () => new Cat(),
+                '/user/:username': (params) => new User(params),
             });
         </script>
     </head>
