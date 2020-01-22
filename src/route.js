@@ -12,7 +12,8 @@ export function route(root, table, base) {
         route.add(pattern, table[pattern]);
     }
     route.root = root;
-    route.base = typeof(base) === 'string' ? base : document.location.pathname + '#';
+    if(typeof(base) === 'string')
+        route.base = base;
 
     window.addEventListener('popstate', ({state}) => {
         if(state) {
@@ -27,6 +28,7 @@ export function route(root, table, base) {
     return route;
 }
 
+route.base = document.location.pathname + '#';
 route.table = [];
 
 /**
