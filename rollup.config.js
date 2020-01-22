@@ -15,7 +15,8 @@ export default {
     input: 'src/index.js',
     output: {
         format: 'es',
-        file: 'lib/frame.es.min.js'
+        file: 'lib/frame.es.min.js',
+        sourcemap: true,
     },
     plugins,
 };
