@@ -2,7 +2,7 @@
   "name": "frame",
   "version": "1.0.0",
   "description": "",
-  "main": "lib/frame.es.min.js",
+  "main": "src/index.js",
   "scripts": {
     "build": "rollup -c --environment BUILD:release && git add lib/frame.es.min.js",
     "dev": "concurrently \"rollup -c -w --environment BUILD:dev\" \"http-server .\"",
