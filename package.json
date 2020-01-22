@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "build": "rollup -c --environment BUILD:release && git add lib/frame.es.min.js",
+    "build": "rollup -c --environment BUILD:release && git add lib/frame.es.min.js lib/frame.es.min.js.map",
     "dev": "concurrently \"rollup -c -w --environment BUILD:dev\" \"http-server .\"",
     "test": "jest"
   },
