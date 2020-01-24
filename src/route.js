@@ -38,7 +38,7 @@ route.table = [];
  * @returns {RegExp} regexp satisfiying the pattern
  */
 function routeToRegex(pattern) {
-    const regex = pattern.replace(/\//g, '\\/').replace(/:(\w+)/g, '(?<$1>\\w+)');
+    const regex = pattern.replace(/\//g, '\\/').replace(/:(\w+)/g, '(?<$1>[^\/]+?)');
     return new RegExp(`^${regex}$`);;
 }
 
