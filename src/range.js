@@ -5,11 +5,9 @@ export function* irange(start, end = null, step = 1) {
         start = 0;
     }
     if(start > end) {
-        const tmp = start;
-        start = end;
-        end = tmp;
+        step = -1;
     }
-    for(let i = start; i <= end; i += step) {
+    for(let i = start; i != end + step; i += step) {
         yield i;
     }
 }
