@@ -5,10 +5,17 @@ export function* irange(start, end = null, step = 1) {
         start = 0;
     }
     if(start > end) {
-        step = -1;
+        step = -step;
     }
-    for(let i = start; i != end + step; i += step) {
-        yield i;
+    if(step > 0) {
+        for(let i = start; i <= end; i += step) {
+            yield i;
+        }
+    }
+    else {
+        for(let i = start; i >= end; i += step) {
+            yield i;
+        }
     }
 }
 
