@@ -13,6 +13,8 @@ json.get = function(originalUrl, query = {}) {
                 sp.append(key, v);
             }
         }
+        else if(value === undefined || value === undefined) {
+        }
         else {
             sp.append(key, value);
         }
