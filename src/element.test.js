@@ -37,5 +37,9 @@ describe('element', function () {
         expect(element(null, 'font', {}, 'test').outerHTML).toBe('<font>test</font>');
         expect(element(null, 'font', {color: 'red'}).outerHTML).toBe('<font color="red"></font>');
         expect(element(null, 'font', {color: 'red'}, 'test').outerHTML).toBe('<font color="red">test</font>');
+        expect(element(null, 'input', {enabled: true}).outerHTML).toBe('<input enabled="true">');
+        expect(element(null, 'input', {enabled: false}).outerHTML).toBe('<input>');
+        expect(element(null, 'input', {enabled: null}).outerHTML).toBe('<input>');
+        expect(element(null, 'input', {enabled: undefined}).outerHTML).toBe('<input>');
     });
 });

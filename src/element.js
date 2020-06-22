@@ -47,6 +47,8 @@ export function element(ns, tagIdCls, arg2, arg3) {
                     el.setAttribute('href', 'javascript:;');
                 }
             }
+            if(value === false || value === null || value === undefined) {
+	    }
             else {
                 el.setAttribute(key, value);
             }
